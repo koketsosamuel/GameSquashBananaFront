@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+	<v-app id="app">
+		<v-container>
+			<router-view />
+		</v-container>
+
+		<vue-progress-bar></vue-progress-bar>
+	</v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+	export default {
+		// watch: {
+		// 	$loadi
+		// }
 
-export default {
-  name: "App",
-  components: {
-    HelloWorld
-  }
-};
+		watch: {
+			$loading: {
+				handler: function(search) {
+					if (this.$loading == true) {
+						this.$Progress.start()
+					} else {
+						this.$Progress.finish()
+					}
+
+					console.log(this.$loading)
+				},
+				deep: true,
+				immediate: true,
+			},
+		},
+	}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+	.cursor {
+		cursor: pointer;
+	}
 </style>
