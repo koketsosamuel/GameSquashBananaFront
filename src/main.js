@@ -26,7 +26,6 @@ Vue.use(prog, {
 	height: "8px",
 })
 
-console.log(Vue)
 
 // axios.interceptors.request.use(
 // 	(config) => {

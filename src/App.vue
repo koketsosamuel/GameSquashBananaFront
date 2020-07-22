@@ -36,4 +36,8 @@
 	.cursor {
 		cursor: pointer;
 	}
+
+	.d-inline {
+		display: inline !important;
+	}
 </style>
