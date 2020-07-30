@@ -2,7 +2,7 @@
 	<div>
 		<h1 class="my-3">Edit Product</h1>
 
-		<v-stepper v-model="stepper" vertical>
+		<v-stepper v-model="stepper" vertical class="pb-0">
 			<v-stepper-header>
 				<v-stepper-step
 					:complete="stepper > 1"
@@ -19,7 +19,7 @@
 					step="2"
 					color="green"
 					editable
-					>Thumbnail</v-stepper-step
+					>Description</v-stepper-step
 				>
 
 				<v-divider></v-divider>
@@ -60,8 +60,8 @@
 						</div>
 						<div class="col-md-12">
 							<v-textarea
-								label="Description"
-								v-model="productObj.description"
+								label="Keywords"
+								v-model="productObj.tags"
 								solo
 								color="purple"
 							></v-textarea>
@@ -86,6 +86,7 @@
 								item-text="name"
 								item-value="_id"
 								solo
+								persistent-hint="hello"
 								color="purple"
 								clearable
 							></v-select>
@@ -101,43 +102,46 @@
 					</div>
 
 					<v-btn class="green white--text" @click="editProduct"
-						>Done</v-btn
+						>Update</v-btn
 					>
 				</v-stepper-content>
 
 				<v-stepper-content step="2">
-					<h2 class="subtitle">Edit Thumbnail</h2>
+					
+					<h2 class="subtitle mb-3">Edit Description</h2>
 
-					<addThumb :id="product"></addThumb>
+					<div class="py-3"></div>
+					<markdown-editor v-model="productObj.description" />
+					<div class="py-3"></div>
+					<v-btn class="green white--text" @click="stepper = 1">Back</v-btn>
+					<v-divider vertical class="mx-2"></v-divider>
+					<v-btn class="green white--text" @click="editProduct">Next</v-btn>
 
-					<v-btn class="green white--text" @click="stepper = 3"
-						>Done</v-btn
-					>
 				</v-stepper-content>
 
 				<v-stepper-content step="3">
 					<h2 class="subtitle">Edit Images For Product</h2>
 
-					<manageImages :id="product" />
-					<v-btn class="green white--text my-5" @click="1"
+					<manageImages />
+					<v-btn class="green white--text my-5" to="/manageproducts"
 						>Done</v-btn
 					>
 				</v-stepper-content>
 			</v-stepper-items>
+
+			<v-btn to="/manageproducts" class="ma-3">Finish</v-btn>
 		</v-stepper>
 	</div>
 </template>
 
 <script>
 	import { mapActions, mapGetters } from "vuex"
-	import addThumb from "./addThumb"
 	import manageImages from "./manageImages"
 
 	export default {
 		name: "addProduct",
 
 		components: {
-			addThumb,
 			manageImages,
 		},
 
@@ -164,8 +168,7 @@
 				)
 				if (res.data.err) return alert(res.data.err.msg)
 				this.product = this.productObj._id
-				console.log(this.productObj)
-				this.stepper = 2
+				this.stepper += 1
 			},
 
 			...mapActions(["getCategories"]),

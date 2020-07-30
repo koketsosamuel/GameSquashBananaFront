@@ -31,7 +31,11 @@ export default {
     data: () => ({
         sorts: [
             {
-                name: "Bestselling",
+                name: "Latest",
+                val: "-createdAt"
+            },
+            {
+                name: "Best selling",
                 val: "-sold"
             },
             {
@@ -58,16 +62,22 @@ export default {
                 name: "Rating: Low - High",
                 val: "rating"
             },
+            
         ]
     }),
 
     methods: {
-        sort(val) {
+        sort(val, replace = false) {
             let query = {...this.$route.query}
             delete query.page
             query.sort = val
-            this.$router.push({query})
+            if(replace) this.$router.replace({query})
+            else this.$router.push({query})
         }
+    },
+
+    created() {
+        if(!this.$route.query.sort) this.sort("-createdAt", true)
     }
 }
 </script>

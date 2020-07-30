@@ -1,10 +1,6 @@
 <template>
   	<div>
 
-		<h1>Manage Products</h1>
-
-		<v-divider class="my-3"></v-divider>
-
 		<v-form @submit="searchProduct">
 			<v-text-field
 				name="name"
@@ -15,7 +11,7 @@
 			></v-text-field>
 		</v-form>
 
-		<p v-if="searchRes != ''"><v-icon>mdi-magnify</v-icon> search: {{search}} -- &nbsp;&nbsp;<v-icon @click="cancelSearch">mdi-close</v-icon></p>
+		<searchInfo />
 
 	  	<div class="mb-10">
 			<sortProducts />
@@ -36,35 +32,40 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="p in productsObj.products" :key="p._id">
-            <td>{{ p.name }}</td>
-            <td>R {{ p.price }}</td>
-            <td>{{ p.quantity }}</td>
-            <td>{{ p.vat ? "Yes" : "No" }}</td>
-            <td>{{ p.views }}</td>
-            <td>{{ p.overallRating ? p.overallRating : "None"}}</td>
-            <td>
-              <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn fab icon v-bind="attrs" v-on="on" @click="product = p">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
+          	<tr 
+				v-for="p in productsObj.products" 
+				:key="p._id" 
+				@click="$router.push('/products/'+p._id)"
+				class="cursor"
+			>
+				<td>{{ p.name }}</td>
+				<td>R {{ p.price }}</td>
+				<td>{{ p.quantity }}</td>
+				<td>{{ p.vat ? "Yes" : "No" }}</td>
+				<td>{{ p.views }}</td>
+				<td>{{ p.overallRating ? p.overallRating : "None"}}</td>
+				<td>
+					<v-menu bottom left>
+						<template v-slot:activator="{ on, attrs }">
+						<v-btn fab icon v-bind="attrs" v-on="on" @click="product = p">
+							<v-icon>mdi-dots-vertical</v-icon>
+						</v-btn>
+						</template>
 
-                <v-list>
-                  <v-list-item @click="quantityDialog = true">
-                    <v-list-item-title>Change Quantity</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="discontinueDialog = true">
-                    <v-list-item-title>Discontinue</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="$router.push('/editproduct/'+p._id)">
-                    <v-list-item-title>Edit</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </td>
-          </tr>
+						<v-list>
+						<v-list-item @click="quantityDialog = true">
+							<v-list-item-title>Change Quantity</v-list-item-title>
+						</v-list-item>
+						<v-list-item @click="discontinueDialog = true">
+							<v-list-item-title>Discontinue</v-list-item-title>
+						</v-list-item>
+						<v-list-item @click="$router.push('/editproduct/'+p._id)">
+							<v-list-item-title>Edit</v-list-item-title>
+						</v-list-item>
+						</v-list>
+					</v-menu>
+				</td>
+			</tr>	
         </tbody>
       </template>
     </v-simple-table>
@@ -72,7 +73,7 @@
 	
 		
 	<div>
-		<div class="float-left my-4">
+		<div class="float-right my-4">
 			<productsPaginator />	
 		</div>
 	</div>
@@ -102,6 +103,7 @@ import { mapGetters, mapActions } from "vuex"
 import productsPaginator from "../../Product/paginator.vue"
 import productsFilter from "../../Product/filter.vue"
 import sortProducts from "../../Product/sort.vue"
+import searchInfo from "../../Product/searchInfo"
 
 export default {
 	name: "manageSimpleProductList",
@@ -109,7 +111,8 @@ export default {
 	components: {
 		productsPaginator,
 		productsFilter,
-		sortProducts
+		sortProducts,
+		searchInfo
 	},
 
 	data: () => ({

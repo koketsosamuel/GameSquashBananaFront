@@ -1,34 +1,39 @@
 <template>
-	<v-app id="app">
-		<v-container>
-			<router-view />
-		</v-container>
+	<div>
+		<v-app id="app">
 
-		<vue-progress-bar></vue-progress-bar>
-	</v-app>
+			<navigation />
+
+			<v-container>
+				<div class="py-8"></div>
+				<router-view />
+			</v-container>
+
+
+
+		</v-app>
+	</div>
 </template>
 
 <script>
+
+	import navigation from "./components/navigation"
+	import {mapActions} from "vuex"
+
 	export default {
-		// watch: {
-		// 	$loadi
-		// }
+		
+		name: "app",
 
-		watch: {
-			$loading: {
-				handler: function(search) {
-					if (this.$loading == true) {
-						this.$Progress.start()
-					} else {
-						this.$Progress.finish()
-					}
-
-					console.log(this.$loading)
-				},
-				deep: true,
-				immediate: true,
-			},
+		components: {
+			navigation
 		},
+
+		methods: mapActions(["getCart", "checkAuth"]),
+
+		created() {
+			this.getCart()
+			this.checkAuth()
+		}
 	}
 </script>
 
@@ -40,4 +45,16 @@
 	.d-inline {
 		display: inline !important;
 	}
+
+	.btn {
+		padding: 2px 6px;
+		border-radius: 3px;
+		background: #ccc;
+		margin: 1px;
+	}
+
+	.btn-group {
+		display: inline;
+	}
+
 </style>

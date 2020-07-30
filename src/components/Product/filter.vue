@@ -235,6 +235,7 @@ export default {
             if(this.category) query.category = this.category
             if(this.inStock) query.inStock = this.inStock
             if(this.rating) query.rating = this.rating
+            if(this.$route.query.s) query.s = this.$route.query.s
 
             this.$router.push({query}).catch(() => {
 

@@ -12,6 +12,18 @@
 		<v-divider vertical class="mx-2"></v-divider>
 
 		<v-btn
+			@click="thumbDialog = true"
+			color="green"
+			class="white--text mb-3"
+			v-if="images.length >= 1"
+		>
+			<v-icon color="white">mdi-image</v-icon>
+			Make Thumb
+		</v-btn>
+
+		<v-divider vertical class="mx-2"></v-divider>
+
+		<v-btn
 			@click="removeDialog = true"
 			color="pink"
 			class="white--text mb-3"
@@ -47,7 +59,7 @@
 					:src="$baseURL + image.image"
 					:input-value="active"
 					@click="
-						toggle = true
+						toggle()
 						index = i
 					"
 				></v-img>
@@ -60,6 +72,14 @@
 			transition="dialog-transition"
 		>
 			<confirmAction :action="removeImage" />
+		</v-dialog>
+
+		<v-dialog
+			v-model="thumbDialog"
+			max-width="500px"
+			transition="dialog-transition"
+		>
+			<confirmAction :action="makeThumb" />
 		</v-dialog>
 	</div>
 </template>
@@ -74,6 +94,7 @@
 		data: () => ({
 			index: 0,
 			removeDialog: false,
+			thumbDialog: false
 		}),
 
 		methods: {
@@ -84,25 +105,42 @@
 				let file = this.$refs.imageFile.files[0]
 				fd.append("image", file, file.name)
 
+				let id = this.id || this.$route.params.productId
+
 				let res = await this.$axios.post(
-					"/productimages/" + this.id,
+					"/productimages/" + id,
 					fd
 				)
-				if (res.data.err) return alert(res.data.err.msg)
-				alert(res.data.msg)
-				this.getProductImages(this.id)
+
+				await this.getProductImages(id)
+				if(this.images.length == 1) this.makeThumb()
+
 			},
 
 			async removeImage() {
+
+				let id = this.id || this.$route.params.productId
+
 				let res = await this.$axios.delete(
 					"/productimages/" + this.images[this.index]._id
 				)
 				if (!res.data.err) {
 					this.index = 0
-					this.getProductImages(this.id)
+					this.getProductImages(id)
 				}
 				this.removeDialog = false
 			},
+
+			makeThumb() {
+
+				let id = this.id || this.$route.params.productId
+
+				this.$axios.put("/products/thumb/"+id, {
+					image: this.images[this.index]
+				})
+				this.thumbDialog = false
+				this.getProductImages(id)
+			}
 		},
 
 		computed: mapGetters(["images"]),
@@ -115,22 +153,13 @@
 
 		created() {
 			if (this.id) this.getProductImages(this.id)
+			
+			else if(this.$route.params.productId) 
+				this.getProductImages(this.$route.params.productId)
 		},
 	}
 </script>
 
 <style>
-	.upload {
-		height: 150px;
-		width: 150px;
-		align-content: center;
-		align-items: center;
-		text-align: center;
-		cursor: pointer;
-	}
 
-	.upload > div {
-		widows: 150px;
-		height: 150px;
-	}
 </style>

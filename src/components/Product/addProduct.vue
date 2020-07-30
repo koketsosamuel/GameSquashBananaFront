@@ -4,14 +4,14 @@
 
 		<v-stepper v-model="stepper" vertical>
 			<v-stepper-header>
-				<v-stepper-step :complete="stepper > 1" step="1" color="green"
+				<v-stepper-step :complete="stepper > 1 || stepper > 2" step="1" color="green"
 					>Details</v-stepper-step
 				>
 
 				<v-divider></v-divider>
 
 				<v-stepper-step :complete="stepper > 2" step="2" color="green"
-					>Thumbnail</v-stepper-step
+					>Description</v-stepper-step
 				>
 
 				<v-divider></v-divider>
@@ -50,8 +50,8 @@
 						</div>
 						<div class="col-md-12">
 							<v-textarea
-								label="Description"
-								v-model="description"
+								label="Keywords"
+								v-model="tags"
 								solo
 								color="purple"
 							></v-textarea>
@@ -90,26 +90,31 @@
 						</div>
 					</div>
 
-					<v-btn class="green white--text" @click="addProduct"
+					<v-btn class="green white--text" @click="stepper = 2"
 						>Next</v-btn
 					>
 				</v-stepper-content>
 
 				<v-stepper-content step="2">
-					<h2 class="subtitle">Add Thumbnail</h2>
+					<h2 class="subtitle">Add Description</h2>
 
-					<addThumb :id="product"></addThumb>
+					<div class="py-3"></div>
 
-					<v-btn class="green white--text" @click="stepper = 3"
-						>Next</v-btn
-					>
+					<markdown-editor v-model="description" />
+
+					<div class="py-3"></div>
+
+					<v-btn class="green white--text" @click="stepper = 1">Back</v-btn>
+					<v-divider vertical class="mx-2"></v-divider>
+					<v-btn class="green white--text" @click="addProduct">Next</v-btn>
+
 				</v-stepper-content>
 
 				<v-stepper-content step="3">
-					<h2 class="subtitle">Add Images For Product</h2>
+					<h2 class="subtitle mb-3">Add Images For Product</h2>
 
 					<manageImages :id="product" />
-					<v-btn class="green white--text my-5" @click="1"
+					<v-btn class="green white--text my-5" to="/manageproducts"
 						>Done</v-btn
 					>
 				</v-stepper-content>
@@ -120,14 +125,12 @@
 
 <script>
 	import { mapActions, mapGetters } from "vuex"
-	import addThumb from "./addThumb"
 	import manageImages from "./manageImages"
 
 	export default {
 		name: "addProduct",
 
 		components: {
-			addThumb,
 			manageImages,
 		},
 
@@ -138,10 +141,11 @@
 			category: null,
 			subCategory: null,
 			vat: true,
-			description: null,
+			description: "",
 			price: null,
 			quantity: null,
 			productId: null,
+			tags: null
 		}),
 
 		methods: {
@@ -162,11 +166,10 @@
 					vat: this.vat,
 					description: this.description,
 					quantity: this.quantity,
+					tags: this.tags
 				})
-				if (res.data.err) return alert(res.data.err.msg)
-				alert(res.data.results._id)
 				this.product = res.data.results._id
-				this.e1 = 2
+				this.stepper = 3
 			},
 
 			...mapActions(["getCategories"]),

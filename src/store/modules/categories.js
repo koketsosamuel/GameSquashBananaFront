@@ -7,7 +7,7 @@ const state = {
 
 const actions = {
 	async getCategories({ commit }) {
-		let res = await axios.get(config.axiosConf.baseURL + "/categories")
+		let res = await this._vm.$axios.get("/categories")
 		commit("setCategories", res.data.results)
 	},
 }

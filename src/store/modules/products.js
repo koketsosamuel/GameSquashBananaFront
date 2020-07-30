@@ -1,5 +1,3 @@
-import axios from "axios"
-import config from "../../config/"
 import qs from "querystringify"
 
 const state = {
@@ -17,15 +15,15 @@ const state = {
 
 const actions = {
 	async getProduct({ commit }, productId) {
-		let res = await axios.get(
-			config.axiosConf.baseURL + "/products/" + productId
+		let res = await this._vm.$axios.get(
+			"/products/" + productId
 		)
 		commit("setProduct", res.data.results)
 	},
 
 	async getProducts({ commit }, query) {
-		let res = await axios.get(
-			config.axiosConf.baseURL + 
+		let res = await this._vm.$axios.get(
+			 
 			"/products/" + 
 			qs.stringify(query, true)
 		)
@@ -33,8 +31,8 @@ const actions = {
 	},
 
 	async getProductImages({ commit }, id) {
-		let res = await axios.get(
-			config.axiosConf.baseURL + "/productimages/" + id
+		let res = await this._vm.$axios.get(
+			 "/productimages/" + id
 		)
 		commit("setProductImages", res.data.results)
 	},
