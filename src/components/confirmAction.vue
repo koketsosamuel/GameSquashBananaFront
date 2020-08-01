@@ -2,6 +2,7 @@
 	<div class="red grey py-4 px-4">
 		<h1>Confirm Action</h1>
 		<p>Enter the code for confirmation</p>
+		<p v-if="nb">NB: {{nb}}</p>
 		<h3>Code: {{ code }}</h3>
 		<v-text-field
 			label="Code"
@@ -22,7 +23,7 @@
 	export default {
 		name: "confirmAction",
 
-		props: ["action"],
+		props: ["action", "nb"],
 
 		data: () => ({
 			code: null,

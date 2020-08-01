@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="my-3">Add Product</h1>
+		<h1 class="my-3 green--text">Add Product</h1>
 
 		<v-stepper v-model="stepper" vertical>
 			<v-stepper-header>
@@ -19,14 +19,14 @@
 				<v-stepper-step step="3" color="green">Images</v-stepper-step>
 			</v-stepper-header>
 
-			<v-stepper-items class="grey">
+			<v-stepper-items class="greys">
 				<v-stepper-content step="1">
 					<div class="row">
 						<div class="col-md-4">
 							<v-text-field
 								label="Name"
 								v-model="name"
-								solo
+								filled
 								color="purple"
 							></v-text-field>
 						</div>
@@ -34,7 +34,7 @@
 							<v-text-field
 								label="Quantity"
 								type="number"
-								solo
+								filled
 								color="purple"
 								v-model="quantity"
 							></v-text-field>
@@ -44,7 +44,7 @@
 								label="Price"
 								type="number"
 								v-model="price"
-								solo
+								filled
 								color="purple"
 							></v-text-field>
 						</div>
@@ -52,7 +52,7 @@
 							<v-textarea
 								label="Keywords"
 								v-model="tags"
-								solo
+								filled
 								color="purple"
 							></v-textarea>
 						</div>
@@ -63,7 +63,7 @@
 								label="Category"
 								item-text="name"
 								item-value="_id"
-								solo
+								filled
 								color="purple"
 								@change="ch"
 							></v-select>
@@ -75,7 +75,7 @@
 								label="Sub Category"
 								item-text="name"
 								item-value="_id"
-								solo
+								filled
 								color="purple"
 								clearable
 							></v-select>
@@ -84,7 +84,7 @@
 							<v-checkbox
 								label="charge VAT on this product"
 								v-model="vat"
-								solo
+								filled
 								color="purple"
 							></v-checkbox>
 						</div>

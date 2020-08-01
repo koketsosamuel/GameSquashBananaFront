@@ -1,9 +1,11 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+
 import home from "../components/home"
 import viewProducts from "../components/Product/viewProducts"
 import oneProduct from "../components/Product/viewOne"
 import cart from "../components/cart/cart.vue"
+import wishlist from "../components/cart/wishlist.vue"
 
 Vue.use(VueRouter)
 
@@ -29,45 +31,86 @@ const routes = [
 		component: cart,
 	},
 	{
+		path: "/wishlist",
+		name: "wishlist",
+		component: wishlist,
+	},
+	{
 		path: "/about",
 		name: "About",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: () =>
-			import(/* webpackChunkName: "about" */ "../views/About.vue"),
+			import("../views/About.vue"),
 	},
 	{
 		path: "/addproduct",
 		name: "addProduct",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: () =>
 			import(
-				/* webpackChunkName: "about" */ "../components/Product/addProduct"
+				"../components/Product/addProduct"
 			),
 	},
 	{
 		path: "/editproduct/:productId",
 		name: "editProduct",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: () =>
 			import(
-				/* webpackChunkName: "about" */ "../components/Product/editProduct"
+				"../components/Product/editProduct"
 			),
 	},
 	{
 		path: "/manageproducts",
 		name: "manageProduct",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: () =>
 			import(
-				/* webpackChunkName: "about" */ "../components/Manager/products"
+				"../components/Manager/products"
+			),
+	},
+	{
+		path: "/managecategories",
+		name: "manageCategories",
+		component: () =>
+			import(
+				"../components/Manager/categories"
+			),
+	},
+	{
+		path: "/addcategory",
+		name: "addCategory",
+		component: () =>
+			import(
+				"../components/Manager/Category/addCategory.vue"
+			),
+	},
+	{
+		path: "/editcategory/:categoryId",
+		name: "editCategory",
+		component: () =>
+			import(
+				"../components/Manager/Category/editCategory.vue"
+			),
+	},
+	{
+		path: "/managesubcategories/:categoryId",
+		name: "manageSubCategories",
+		component: () =>
+			import(
+				"../components/Manager/subCategories"
+			),
+	},
+	{
+		path: "/addsubcategory/:categoryId",
+		name: "addSubCategory",
+		component: () =>
+			import(
+				"../components/Manager/subCategory/addSubCategory.vue"
+			),
+	},
+	{
+		path: "/editsubcategory/:subCategoryId",
+		name: "editSubCategory",
+		component: () =>
+			import(
+				"../components/Manager/subCategory/editSubCategory.vue"
 			),
 	},
 ]

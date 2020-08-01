@@ -36,7 +36,7 @@
 							<v-text-field
 								label="Name"
 								v-model="productObj.name"
-								solo
+								filled
 								color="purple"
 							></v-text-field>
 						</div>
@@ -44,7 +44,7 @@
 							<v-text-field
 								label="Quantity"
 								type="number"
-								solo
+								filled
 								color="purple"
 								v-model="productObj.quantity"
 							></v-text-field>
@@ -54,7 +54,7 @@
 								label="Price"
 								type="number"
 								v-model="productObj.price"
-								solo
+								filled
 								color="purple"
 							></v-text-field>
 						</div>
@@ -62,7 +62,7 @@
 							<v-textarea
 								label="Keywords"
 								v-model="productObj.tags"
-								solo
+								filled
 								color="purple"
 							></v-textarea>
 						</div>
@@ -73,7 +73,7 @@
 								label="Category"
 								item-text="name"
 								item-value="_id"
-								solo
+								filled
 								color="purple"
 								@change="ch"
 							></v-select>
@@ -85,7 +85,7 @@
 								label="Sub Category"
 								item-text="name"
 								item-value="_id"
-								solo
+								filled
 								persistent-hint="hello"
 								color="purple"
 								clearable
@@ -95,7 +95,7 @@
 							<v-checkbox
 								label="charge VAT on this product"
 								v-model="productObj.vat"
-								solo
+								filled
 								color="purple"
 							></v-checkbox>
 						</div>

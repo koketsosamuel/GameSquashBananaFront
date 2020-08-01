@@ -2,8 +2,7 @@
 	<div>
 		<v-btn
 			@click="$refs.imageFile.click()"
-			color="purple"
-			class="white--text mb-3"
+			class="white--text mb-3 purple"
 		>
 			<v-icon color="white">mdi-upload</v-icon>
 			Upload
@@ -41,30 +40,24 @@
 				max-width="300"
 				contain
 				:src="$baseURL + images[index].image"
-				class="green"
 			></v-img>
 		</div>
 
-		<v-slide-group multiple show-arrows class=" mt-3">
-			<v-slide-item
-				v-for="(image, i) in images"
-				:key="image._id"
-				v-slot:default="{ active, toggle }"
-			>
+		<div class="d-flex mt-3">
+			
 				<v-img
-					max-height="100"
+					v-for="(image, i) in images"
+					:key="image._id"
+					max-height="400"
 					max-width="100"
 					contain
-					class=" my-2 purple cursor"
-					:src="$baseURL + image.image"
-					:input-value="active"
-					@click="
-						toggle()
-						index = i
-					"
+					class=" my-2 cursor"
+					:src="$baseURL + (image.image || null)"
+					@click="index = i"
+					lazy-src="../../assets/lazy.jpeg" 
 				></v-img>
-			</v-slide-item>
-		</v-slide-group>
+	
+		</div>
 
 		<v-dialog
 			v-model="removeDialog"
@@ -113,6 +106,7 @@
 				)
 
 				await this.getProductImages(id)
+
 				if(this.images.length == 1) this.makeThumb()
 
 			},

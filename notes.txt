@@ -1,2 +1,3 @@
 remember the fields and give them correct names
 use normal save
+manageimages, not making first image a thumb, and not showing images after uploading when we adding

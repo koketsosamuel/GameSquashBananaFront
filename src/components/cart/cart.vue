@@ -7,7 +7,7 @@
         <div class="pt-2 pb-4">
             <v-btn color="pink" class="white--text" @click="remove">Remove</v-btn>
             <v-divider vertical class="mx-2"></v-divider>
-            <v-btn color="purple" class="white--text">move to wishlist</v-btn>
+            <v-btn color="purple" class="white--text" @click="movetowish">move to wishlist</v-btn>
         </div>
 
         <div v-for="item in cart.items" :key="item._id" class="d-flex pa-2 mb-2 grey lighten-4"> 
@@ -113,6 +113,8 @@ export default {
             })
 
             this.getCart()
+            this.cartItems = []
+
         },
 
         async update(e) {
@@ -127,11 +129,23 @@ export default {
 
             this.quanErr = null
 
-            let res = await this.$axios.put("/cartitems/"+this.cartItem._id, this.cartItem)
+            let res = await this.$axios.put("/cartitems/one/"+this.cartItem._id, this.cartItem)
             if(!res.data.err) this.getCart()
             this.quantityDialog = false
 
-        }
+        },
+
+        async movetowish() {
+
+            if(this.cartItems.length == 0) return this.$toast("No items selected")
+
+            await this.$axios.put("/cartitems/carttowish", {
+                items: this.cartItems
+            })
+
+            this.cartItems = []
+            this.getCart()
+        },
 
     },
 

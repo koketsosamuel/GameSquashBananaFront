@@ -1,15 +1,16 @@
-import jsCookie from "js-cookie"
-
 const state = {
     cart: {
         items: [],
         total: 0,
         checkout: true
-    }
+    },
+
+    wishlist: []
 }
 
 const getters = {
-    cart: state => state.cart
+    cart: state => state.cart,
+    wishlist: state => state.wishlist
 }
 
 const actions = {
@@ -19,8 +20,18 @@ const actions = {
 
         try {
             let res = await this._vm.$axios.get("/cartitems")
-            console.log(res)
             commit("setCart", res.data.results)
+        } catch (error) {
+            
+        }
+
+    },
+
+    async getWishlist({commit}) {
+
+        try {
+            let res = await this._vm.$axios.get("/cartitems?wish=true")
+            commit("setWishlist", res.data.results.items)
         } catch (error) {
             
         }
@@ -41,6 +52,12 @@ const mutations = {
             if(i.quantity > i.product.quantity) state.cart.checkout = false
             if(i.product.quantity <= 0) state.cart.checkout = false
         }
+
+    },
+
+    async setWishlist(state, data) {
+        
+        state.wishlist = data
 
     }
 }

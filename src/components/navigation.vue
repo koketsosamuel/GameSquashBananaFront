@@ -65,7 +65,7 @@
 			</v-list>
 			</v-menu>
 
-			<v-btn icon>
+			<v-btn icon to="/wishlist">
 				<v-icon>mdi-heart</v-icon>
 			</v-btn>
 

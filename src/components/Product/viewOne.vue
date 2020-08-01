@@ -57,7 +57,7 @@
                         <v-btn color="green" class="white--text" :disabled="!(product.quantity > 0 || product.quantity == null)" @click="addToCart">
                             <v-icon>mdi-cart-plus</v-icon> add to cart
                         </v-btn>
-                        <v-btn  color="pink" class="white--text">
+                        <v-btn  color="pink" class="white--text" @click="addToWishlist">
                             <v-icon>mdi-heart</v-icon> wishlist
                         </v-btn>
                     </v-card-actions>
@@ -137,11 +137,16 @@ export default {
 
     methods: {
         
-        ...mapActions(["getProductImages", "getCart"]),
+        ...mapActions(["getProductImages", "getCart", "getWishlist"]),
 
         async addToCart() {
             await this.$axios.post("/cartitems", {product: this.product._id})
             this.getCart()
+        },
+
+        async addToWishlist() {
+            let res = await this.$axios.post("/cartitems/wish", {product: this.product._id})
+            if(!res.data.err) this.getWishlist()
         }
 
     },

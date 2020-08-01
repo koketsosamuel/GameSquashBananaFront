@@ -1,6 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import categories from "./modules/categories"
+import subCategories from "./modules/subcategories"
 import products from "./modules/products"
 import auth from "./modules/auth"
 import cart from "./modules/cart"
@@ -15,6 +16,7 @@ export default new Vuex.Store({
 		categories,
 		products,
 		auth,
-		cart
+		cart,
+		subCategories
 	},
 })
