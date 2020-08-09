@@ -56,11 +56,11 @@ export default {
             },
             {
                 name: "Rating: High - Low",
-                val: "-rating"
+                val: "-overallRating"
             },
             {
                 name: "Rating: Low - High",
-                val: "rating"
+                val: "overallRating"
             },
             
         ]

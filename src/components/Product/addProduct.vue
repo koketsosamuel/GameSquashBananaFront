@@ -190,7 +190,6 @@
 
 		async created() {
 			await this.getCategories()
-			console.log(this.categories)
 		},
 	}
 </script>

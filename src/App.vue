@@ -57,4 +57,8 @@
 		display: inline;
 	}
 
+	.clear-float {
+		clear: both;
+	}
+
 </style>

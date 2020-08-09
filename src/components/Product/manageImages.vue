@@ -39,7 +39,7 @@
 				max-height="300"
 				max-width="300"
 				contain
-				:src="$baseURL + images[index].image"
+				:src="$baseURL + (images[index].image + '').replace('./','')"
 			></v-img>
 		</div>
 
@@ -52,7 +52,7 @@
 					max-width="100"
 					contain
 					class=" my-2 cursor"
-					:src="$baseURL + (image.image || null)"
+					:src="$baseURL + (image.image + '').replace('./','')"
 					@click="index = i"
 					lazy-src="../../assets/lazy.jpeg" 
 				></v-img>
@@ -107,6 +107,8 @@
 
 				await this.getProductImages(id)
 
+				console.log(this.images)
+
 				if(this.images.length == 1) this.makeThumb()
 
 			},
@@ -142,6 +144,9 @@
 		watch: {
 			id() {
 				if (this.id) this.getProductImages(this.id)
+				this.index = 0
+				this.index = 1
+				this.index = 0
 			},
 		},
 

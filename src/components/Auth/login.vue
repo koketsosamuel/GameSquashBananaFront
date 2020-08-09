@@ -93,8 +93,8 @@ export default {
                 this.emailErr = null
             }
 
-            if(!this.password || this.password.length <= 7) {
-                this.passwordErr = "length should be a minimun of 8 characters"
+            if(!this.password || this.password.length <= 5) {
+                this.passwordErr = "length should be a minimun of 6 characters"
                 valid = false
             } else {
                 this.passwordErr = null

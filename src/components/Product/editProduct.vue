@@ -29,7 +29,7 @@
 				>
 			</v-stepper-header>
 
-			<v-stepper-items class="grey">
+			<v-stepper-items class="white">
 				<v-stepper-content step="1">
 					<div class="row">
 						<div class="col-md-4">
@@ -101,9 +101,9 @@
 						</div>
 					</div>
 
-					<v-btn class="green white--text" @click="editProduct"
-						>Update</v-btn
-					>
+					<v-btn class="green white--text" @click="editProduct">Update</v-btn>
+					<v-divider vertical class="mx-2"></v-divider>
+					<v-btn class="purple white--text" @click="stepper += 1">Skip</v-btn>
 				</v-stepper-content>
 
 				<v-stepper-content step="2">
@@ -115,7 +115,7 @@
 					<div class="py-3"></div>
 					<v-btn class="green white--text" @click="stepper = 1">Back</v-btn>
 					<v-divider vertical class="mx-2"></v-divider>
-					<v-btn class="green white--text" @click="editProduct">Next</v-btn>
+					<v-btn class="purple white--text" @click="editProduct">Skip</v-btn>
 
 				</v-stepper-content>
 
@@ -129,7 +129,7 @@
 				</v-stepper-content>
 			</v-stepper-items>
 
-			<v-btn to="/manageproducts" class="ma-3">Finish</v-btn>
+			<v-btn to="/manageproducts" class="pink ma-5">Finish</v-btn>
 		</v-stepper>
 	</div>
 </template>
@@ -139,7 +139,7 @@
 	import manageImages from "./manageImages"
 
 	export default {
-		name: "addProduct",
+		name: "editProduct",
 
 		components: {
 			manageImages,

@@ -24,7 +24,7 @@ const actions = {
 	async getProducts({ commit }, query) {
 		let res = await this._vm.$axios.get(
 			 
-			"/products/" + 
+			"/products" + 
 			qs.stringify(query, true)
 		)
 		commit("setProducts", res.data)
@@ -45,6 +45,7 @@ const mutations = {
 	setProducts(state, data) {
 		state.productsObj.products = data.results
 		state.productsObj.nav = data.nav
+		console.log(data.nav)
 	},
 	setProductImages(state, data) {
 		state.images = data

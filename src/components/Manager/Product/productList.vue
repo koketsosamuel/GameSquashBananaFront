@@ -26,9 +26,12 @@
             <th class="text-left">Name</th>
             <th class="text-left">Price</th>
             <th class="text-left">Quantity</th>
+            <th class="text-left">Sold</th>
             <th class="text-left">VAT</th>
             <th class="text-left">Views</th>
             <th class="text-left">Rating</th>
+            <th class="text-left">Status</th>
+			<th></th>
           </tr>
         </thead>
         <tbody>
@@ -41,9 +44,17 @@
 				<td>{{ p.name }}</td>
 				<td>R {{ p.price }}</td>
 				<td>{{ p.quantity }}</td>
+				<td>{{ p.sold }}</td>
 				<td>{{ p.vat ? "Yes" : "No" }}</td>
 				<td>{{ p.views }}</td>
-				<td>{{ p.overallRating ? p.overallRating : "None"}}</td>
+				<td>
+					<v-icon color="amber" v-if="p.overallRating">mdi-star</v-icon>
+					{{ p.overallRating ? p.overallRating : "None"}} 
+				</td>
+				<td 
+					:class="p.discontinued ? 'pink--text' : 'green--text'"
+				>{{ p.discontinued ? "discontinued" : "active"}}</td>
+
 				<td>
 					<v-menu bottom left>
 						<template v-slot:activator="{ on, attrs }">
@@ -53,15 +64,21 @@
 						</template>
 
 						<v-list>
-						<v-list-item @click="quantityDialog = true">
-							<v-list-item-title>Change Quantity</v-list-item-title>
-						</v-list-item>
-						<v-list-item @click="discontinueDialog = true">
-							<v-list-item-title>Discontinue</v-list-item-title>
-						</v-list-item>
-						<v-list-item @click="$router.push('/editproduct/'+p._id)">
-							<v-list-item-title>Edit</v-list-item-title>
-						</v-list-item>
+							<v-list-item @click="quantityDialog = true">
+								<v-list-item-title>Change Quantity</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="discontinueDialog = true" v-if="!p.discontinued">
+								<v-list-item-title>Discontinue</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="continueDialog = true" v-else>
+								<v-list-item-title>Continue</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="$router.push('/editproduct/'+p._id)">
+								<v-list-item-title>Edit</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="removeDialog = true">
+								<v-list-item-title>Remove</v-list-item-title>
+							</v-list-item>
 						</v-list>
 					</v-menu>
 				</td>
@@ -82,14 +99,22 @@
       	<confirmAction :action="discontinue" />
     </v-dialog>
 
+	<v-dialog v-model="continueDialog" max-width="500px" transition="dialog-transition">
+      	<confirmAction :action="continueP" />
+    </v-dialog>
+
+	<v-dialog v-model="removeDialog" max-width="500px" transition="dialog-transition">
+      	<confirmAction :action="remove" />
+    </v-dialog>
+
     <v-dialog v-model="quantityConfirmDialog" max-width="500px" transition="dialog-transition">
       	<confirmAction :action="changeQuantity" />
     </v-dialog>
 
 	<v-dialog v-model="quantityDialog" max-width="500px" transition="dialog-transition">
-		<div class="grey px-2 py-2">
+		<div class="grey pa-4">
 			<h1>Update quantity</h1>
-			<p></p>
+			<p>NB: Action is irreversible</p>
 			<v-text-field solo label="Quantity" v-model="product.quantity"></v-text-field>
 			<v-btn @click="quantityConfirmDialog = true">Update</v-btn>
 		</div>
@@ -120,7 +145,9 @@ export default {
 			quantity: null
 		},
 		discontinueDialog: false,
+		continueDialog: false,
 		quantityDialog: false,
+		removeDialog: false,
 		quantityConfirmDialog: false,
 		search: "",
 		searchRes: ""
@@ -134,6 +161,14 @@ export default {
 				"/products/discontinue/" + this.product._id
 			)
 			this.discontinueDialog = false
+			this.getProducts()
+		},
+
+		async continueP() {
+			await this.$axios.put(
+				"/products/continue/" + this.product._id
+			)
+			this.continueDialog = false
 			this.getProducts()
 		},
 		
@@ -166,6 +201,12 @@ export default {
 			this.search = ""
 			this.searchProduct()
 			this.searchRes = ""
+
+		},
+
+		async remove() {
+			let res = await this.$axios.delete("/products/" + this.product._id)
+			if(!res.data.err) this.getProducts()
 
 		}
 	},

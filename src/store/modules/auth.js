@@ -16,7 +16,8 @@ const actions = {
     async checkAuth({commit}) {
         try {
             let res = await this._vm.$axios.post("/users/checkauth", {})
-            if(res.data.results) commit("setAuth", res.data.results)
+            if(res.data.results != undefined || res.data.results != null) commit("setAuth", res.data.results)
+            console.log(res.data.results != undefined)
         } catch (error) {
             
         }

@@ -113,6 +113,22 @@ const routes = [
 				"../components/Manager/subCategory/editSubCategory.vue"
 			),
 	},
+	{
+		path: "/myaccount",
+		name: "myAccount",
+		component: () =>
+			import(
+				"../components/Auth/myAccount.vue"
+			),
+	},
+	{
+		path: "/manageunapprovedreviews",
+		name: "manageUnapprovedReviews",
+		component: () =>
+			import(
+				"../components/Manager/unapprovedReviews"
+			),
+	},
 ]
 
 const router = new VueRouter({

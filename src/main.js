@@ -1,10 +1,16 @@
 import Vue from "vue"
-import App from "./App.vue"
-import vuetify from "./plugins/vuetify"
-import confirmAction from "./components/confirmAction.vue"
 import Editor from "v-markdown-editor"
 import toast from "vue-toastification"
+import axios from "axios"
+import store from "./store"
+import router from "./router"
+import vuetify from "./plugins/vuetify"
 import progress from "vue-progress-indicator"
+import moment from "moment"
+
+import App from "./App.vue"
+import confirmAction from "./components/confirmAction.vue"
+import messageIcon from "./components/util/messageIcon.vue"
 
 import "./assets/bootstrap-grid.min.css"
 import "roboto-fontface/css/roboto/roboto-fontface.css"
@@ -12,9 +18,6 @@ import "@mdi/font/css/materialdesignicons.css"
 import "v-markdown-editor/dist/v-markdown-editor.css"
 import "vue-toastification/dist/index.css"
 
-import axios from "axios"
-import store from "./store"
-import router from "./router"
 
 let axiosMod = axios.create({
 	baseURL: "http://127.0.0.1:3000",
@@ -31,8 +34,10 @@ Vue.config.productionTip = false
 // protos
 Vue.prototype.$loading = true
 Vue.prototype.$baseURL = "http://127.0.0.1:3000/"
+Vue.prototype.$moment = moment()
 
 Vue.component("confirmAction", confirmAction)
+Vue.component("messageIcon", messageIcon)
 
 axiosMod.interceptors.request.use(
 	(config) => {

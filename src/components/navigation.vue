@@ -6,7 +6,6 @@
 			dark
 			app
 			elevate-on-scroll
-			
 		>
 			<v-app-bar-nav-icon></v-app-bar-nav-icon>
 			<router-link to="/" tag="span">
@@ -50,7 +49,7 @@
 				<v-list-item @click="loginDialog = true" v-if="!user">
 					<v-list-item-title> Login</v-list-item-title>
 				</v-list-item>
-				<v-list-item v-if="user">
+				<v-list-item v-if="user" to="/myaccount">
 					<v-list-item-title> My Account</v-list-item-title>
 				</v-list-item>
 				<v-list-item v-if="user && user.isAdmin">
@@ -180,5 +179,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>

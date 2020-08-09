@@ -19,19 +19,19 @@
             align="left"
             class="mx-0 my-0 py-0"
         >
-            <h5 class="py-0">{{product.name}}</h5>
+            <h5 class="py-0 pl-2">{{product.name}}</h5>
            
-            <div class="grey--text my-0 py-0">R {{product.price}}</div>
+            <div class="grey--text my-0 py-0 pl-2">R {{product.price}}</div>
             
             <v-rating
-                :value="product.rating"
+                :value="product.overallRating"
                 color="amber"
                 dense
-                class="float-right py-2"
+                class="flofat-right py-2"
                 half-increments
                 readonly
                 size="17"
-                v-if="product.rating"
+                v-if="product.overallRating"
             ></v-rating>
 
         </div>
