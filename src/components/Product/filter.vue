@@ -4,10 +4,8 @@
 
         <v-dialog
             v-model="mainDialog"
-            background-color="grey"
-            color="primary"
-s            min-height="100vh"
-            max-width="95vw"
+            class="white"
+            color="white"
             transition="dialog-transition"
         >
 
@@ -16,28 +14,31 @@ s            min-height="100vh"
                     color="purple white--text" 
                     v-on="on"
                     v-bind="attrs"
-                ><v-icon>mdi-tune</v-icon> Filter</v-btn>
+                >
+					<v-icon>mdi-tune</v-icon> Filter {{num}}
+				</v-btn>
             </template>
 
-            <div class="grey px-2 py-2 row">
+            <div class="white pa-4 row">
                 <div class="col-md-6 my-0 col-lg-4">
-                    <h2>Price</h2>
+                    <h3 class="green--text">Price</h3>
                     <p>Limit to a specific price range</p>
                     
                     <v-select
                         :items="priceRanges"
                         v-model="priceRange"
                         label="Price range..."
-                        solo
+                        filled
                         item-value="i"
                         item-text="text"
                         clearable
+                        color="purple"
                     ></v-select>
 
                 </div>
 
                 <div class="col-md-6 my-0 col-lg-4">
-                    <h2>Category</h2>
+                    <h3 class="green--text">Category</h3>
                     <p>Limit to a specific category</p>
                     
                     <v-select
@@ -45,30 +46,32 @@ s            min-height="100vh"
                         :items="categories"
                         v-model="category"
                         label="Category ..."
-                        solo
+                        filled
                         item-value="_id"
                         item-text="name"
                         class="my-0"
                         clearable
+                        color="purple"
                     ></v-select>
                 </div>
 
                 <div class="col-md-6 my-0 col-lg-4">
-                    <h2>Rating</h2>
+                    <h3 class="green--text">Rating</h3>
                     <p>Limit to a specific minimum rating</p>
                     
                     <v-select
                         :items="ratingArr"
                         v-model="rating"
                         label="Rating ..."
-                        solo
+                        filled
                         item-value="val"
                         item-text="text"
                         clearable
+                        color="purple"
                     ></v-select>
                 </div>
                 <div class="col-md-6 my-0 py-0   col-lg-4">
-                    <h2>In stock products only</h2>
+                    <h3 class="green--text">In stock products only</h3>
                     <p>Get only products that are in stock</p>
                     <v-checkbox color="purple" label="In Stock" v-model="inStock" dense></v-checkbox>
                 </div>
@@ -76,8 +79,11 @@ s            min-height="100vh"
 
                <div class="col-12 py-0 mt-0 mb-5">
                     <v-btn @click="filter">Filter</v-btn>
-                    <v-divider class="mx-2 grey" vertical color="grey"></v-divider>
-                    <v-btn color="pink" @click="mainDialog = false; reset()">Cancel</v-btn>
+                    <v-divider class="mx-2 white" vertical ></v-divider>
+                    <v-btn color="pink" class="white--text" @click="mainDialog = false; reset()">Cancel</v-btn>
+                    <v-divider class="mx-2 white" vertical ></v-divider>
+                    <v-btn color="success" class="float-right" @click="clearFilter">Clear Filter</v-btn>
+                    <div class="clear-float"></div>
                </div>
 
             </div>
@@ -95,7 +101,6 @@ export default {
 
     data: () => ({
         mainDialog: false,
-        priceDialog: false,
         inStock: false,
         category: null,
         rating: null,
@@ -121,7 +126,7 @@ export default {
                 val: 5
             }
         ],
-        priceRanges: [
+        priceRanges: [  
             {
                 i: 0,
                 maxPrice: 100,
@@ -183,6 +188,7 @@ export default {
             },
         ],
         priceRange: null,
+        num: ""
 
 
     }),
@@ -216,7 +222,27 @@ export default {
                 
             if(this.$route.query.category) this.category = this.$route.query.category
             if(this.$route.query.inStock) this.inStock = this.$route.query.inStock
-            if(this.$route.query.rating) this.rating = this.$route.query.rating
+            if(this.$route.query.rating) this.rating = Number(this.$route.query.rating)
+
+        },
+
+        clearFilter() {
+            
+            let query = {...this.$route.query}
+            delete query.minPrice
+            delete query.maxPrice
+            delete query.rating
+            delete query.inStock
+            delete query.category
+
+            this.rating = null
+            this.category = null
+            this.priceRange = null
+            this.inStock = null
+
+            this.$router.push({query: {...query}})
+            this.mainDialog = false
+            this.num = ""
 
         },
 
@@ -241,7 +267,22 @@ export default {
 
             })
             this.mainDialog = false
+            this.filterCount()
             
+        },
+
+        filterCount() {
+
+            let i = 0
+
+            if(this.category) i = 1
+            if(this.priceRange) i += 1 
+            if(this.rating) i += 1
+            if(this.inStock) i += 1
+
+            if(i > 0) this.num = "["+i+"]"
+            else this.num = ""
+
         }
     },
 
@@ -249,6 +290,7 @@ export default {
 
         this.getCategories()
         this.reset()
+        this.filterCount()
         
     }
 }

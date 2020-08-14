@@ -129,6 +129,22 @@ const routes = [
 				"../components/Manager/unapprovedReviews"
 			),
 	},
+	{
+		path: "/admin",
+		name: "admin",
+		component: () =>
+			import(
+				"../components/Manager/admin"
+			),
+	},
+	{
+		path: "/manageusers",
+		name: "manageUsers",
+		component: () =>
+			import(
+				"../components/Manager/users"
+			),
+	},
 ]
 
 const router = new VueRouter({

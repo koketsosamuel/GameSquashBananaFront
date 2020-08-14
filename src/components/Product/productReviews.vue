@@ -1,25 +1,31 @@
 <template>
     <div ref="top">
 
-        <div v-for="r in reviews" :key="r._id" class="grey pa-3 lighten-2 mb-2">
-            <div class>
-                <h4 class="purple--text py-2">
-                    <v-icon color="purple">mdi-account</v-icon>
-                {{r.nameOfUser}} 
-                </h4>
-                <v-rating
-                    color="amber "
-                    class=" my-0 py-0 pl-0"
-                    dense
-                    half-increments
-                    size="13"
-                    readonly
-                    :value="r.rating"
-                ></v-rating>
-            
+        <div v-if="reviews.length > 0">
+            <div v-for="r in reviews" :key="r._id" class="grey pa-3 lighten-2 mb-2">
+                <div class>
+                    <h4 class="purple--text py-2">
+                        <v-icon color="purple">mdi-account</v-icon>
+                    {{r.nameOfUser}} 
+                    </h4>
+                    <v-rating
+                        color="amber "
+                        class=" my-0 py-0 pl-0"
+                        dense
+                        half-increments
+                        size="13"
+                        readonly
+                        :value="r.rating"
+                    ></v-rating>
+                
+                </div>
+                <p class="">{{r.comment}}</p>
             </div>
-            <p class="">{{r.comment}}</p>
+
         </div>
+
+        
+        <messageIcon message="No reviews yet. Be the first!"  v-else />
 
 
         <v-pagination 

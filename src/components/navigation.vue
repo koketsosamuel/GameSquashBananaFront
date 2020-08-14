@@ -133,12 +133,15 @@ export default {
         searchProducts(e) {
 			
             
-            e.preventDefault()
+			e.preventDefault()
+			
+			let q = this.$route.query
+			q.page = 1
             
             if(this.search != this.$route.query.s) 
                 this.$router.push({
                     name: "Products", 
-                    query: {...this.$route.query, s: this.search}
+                    query: {...q, s: this.search}
                 })
 
 		},

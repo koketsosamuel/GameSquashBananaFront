@@ -19,7 +19,7 @@
 			<productsFilter />
 		</div>
 
-    <v-simple-table dense>
+    <v-simple-table dense v-if="productsObj.products.length > 0">
       <template v-slot:default>
         <thead>
           <tr>
@@ -29,7 +29,10 @@
             <th class="text-left">Sold</th>
             <th class="text-left">VAT</th>
             <th class="text-left">Views</th>
-            <th class="text-left">Rating</th>
+            <th class="text-left">
+				<v-icon color="amber">mdi-star</v-icon>
+				Rating
+			</th>
             <th class="text-left">Status</th>
 			<th></th>
           </tr>
@@ -48,7 +51,6 @@
 				<td>{{ p.vat ? "Yes" : "No" }}</td>
 				<td>{{ p.views }}</td>
 				<td>
-					<v-icon color="amber" v-if="p.overallRating">mdi-star</v-icon>
 					{{ p.overallRating ? p.overallRating : "None"}} 
 				</td>
 				<td 
@@ -87,9 +89,9 @@
       </template>
     </v-simple-table>
 
-	
+	<messageIcon message="No products here!" v-else />
 		
-	<div>
+	<div v-if="productsObj.pages > 1">
 		<div class="float-right my-4">
 			<productsPaginator />	
 		</div>

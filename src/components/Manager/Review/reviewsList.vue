@@ -39,9 +39,9 @@
             </v-simple-table>
 
             <v-pagination 
-                :length="nav.pages " 
+                :length="nav.pages" 
                 v-model="page" 
-                :total-visible="4"
+                :total-visible="6"
                 right
                 color="purple"
                 class="d-inline py-4 mt-4"

@@ -9,13 +9,15 @@
 			<productsFilter />
 		</div>
 
-        <div class="row">
+        <div class="row" v-if="productsObj.products.length > 0">
             <div class="col-6 col-md-4 col-lg-3" v-for="product in productsObj.products" :key="product._id">
                 <productSingle  :product="product" />
             </div>
         </div>
 
-        <div>
+        <messageIcon message="No products found!" v-else />
+
+        <div v-if="productsObj.nav.pages > 1">
             <div class="float-right">
                 <productsPaginator />
             </div>

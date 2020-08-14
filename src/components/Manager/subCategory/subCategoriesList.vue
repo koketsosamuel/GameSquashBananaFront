@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-simple-table dense>
+        <v-simple-table dense v-if="subCategories.length > 0">
             <template v-slot:default>
                 <thead>
                     <tr>
@@ -47,6 +47,8 @@
             </template>
         </v-simple-table>
 
+        <messageIcon message="No Sub Catagories yet. Add one!" v-else />
+
         <v-dialog v-model="removeDialog" max-width="500px" transition="dialog-transition">
             <confirmAction :action="remove" nb="All products in this sub category will be without a sub category! Action is irreversible!" />
         </v-dialog>
@@ -79,8 +81,8 @@ export default {
 
     computed: mapGetters(["subCategories"]),
 
-    created() {
-        this.getSubCategories(this.$route.params.categoryId)
+    async created() {
+        await this.getSubCategories(this.$route.params.categoryId)
     }
 
 }

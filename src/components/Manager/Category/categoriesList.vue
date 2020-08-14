@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-simple-table dense>
+        <v-simple-table dense v-if="categories.length > 0">
             <template v-slot:default>
                 <thead>
                     <tr>
@@ -43,6 +43,8 @@
                 </tbody>
             </template>
         </v-simple-table>
+
+        <messageIcon message="No categories yet, add one!" v-else />
 
         <v-dialog v-model="removeDialog" max-width="500px" transition="dialog-transition">
             <confirmAction :action="remove" nb="Sub categories will also be removed, and all products in this category will be without a category! Action is irreversible!" />
