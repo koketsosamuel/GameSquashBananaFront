@@ -1,5 +1,11 @@
 <template>
     <div>
+
+        <div class="my-4">
+            <banners />
+
+        </div>
+
         <h1>Our Latest Stuff</h1>
         <horProds query="?sort=-createdAt&perpage=6" />
 
@@ -12,13 +18,15 @@
 
 <script>
 import horProds from "./Product/horizontalProducts"
+import banners from "./bannerView"
 
 export default {
 
     name: "home",
 
     components: {
-        horProds
+        horProds,
+        banners
     }
 
 }

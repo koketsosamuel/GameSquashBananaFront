@@ -49,12 +49,12 @@ export default {
                 to: "/managecategories"
             },
             {
-                icon: "money-box",
+                icon: "minus-box",
                 title: "Coupons",
-                to: "/manageunapprovedreviews"
+                to: "/managecoupons"
             },
-             {
-                icon: "collection-text",
+            {
+                icon: "clipboard-text",
                 title: "Orders",
                 to: "/manageunapprovedreviews"
             },
@@ -64,9 +64,14 @@ export default {
                 to: "/manageunapprovedreviews"
             },
             {
-                icon: "truck",
+                icon: "swap-vertical-bold",
                 title: "Specials",
                 to: "/manageunapprovedreviews"
+            },
+            {
+                icon: "camera-burst",
+                title: "Banners",
+                to: "/managebanners"
             },
 
 

@@ -4,8 +4,9 @@ import VueRouter from "vue-router"
 import home from "../components/home"
 import viewProducts from "../components/Product/viewProducts"
 import oneProduct from "../components/Product/viewOne"
-import cart from "../components/cart/cart.vue"
-import wishlist from "../components/cart/wishlist.vue"
+import cart from "../components/cart/cart"
+import wishlist from "../components/cart/wishlist"
+import checkout from "../components/checkout"
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
 		path: "/wishlist",
 		name: "wishlist",
 		component: wishlist,
+	},
+	{
+		path: "/checkout",
+		name: "checkout",
+		component: checkout,
 	},
 	{
 		path: "/about",
@@ -143,6 +149,54 @@ const routes = [
 		component: () =>
 			import(
 				"../components/Manager/users"
+			),
+	},
+	{
+		path: "/addcoupon",
+		name: "addCoupon",
+		component: () =>
+			import(
+				"../components/Manager/Coupon/addCoupon"
+			),
+	},
+	{
+		path: "/editcoupon/:couponId",
+		name: "editCoupon",
+		component: () =>
+			import(
+				"../components/Manager/Coupon/editCoupon"
+			),
+	},
+	{
+		path: "/managecoupons",
+		name: "manageCoupons",
+		component: () =>
+			import(
+				"../components/Manager/coupons"
+			),
+	},
+	{
+		path: "/addbanner",
+		name: "addBanner",
+		component: () =>
+			import(
+				"../components/Manager/Banner/addBanner"
+			),
+	},
+	{
+		path: "/editbanner/:bannerId",
+		name: "editBanner",
+		component: () =>
+			import(
+				"../components/Manager/Banner/editBanner"
+			),
+	},
+	{
+		path: "/managebanners",
+		name: "manageBanners",
+		component: () =>
+			import(
+				"../components/Manager/banners"
 			),
 	},
 ]
