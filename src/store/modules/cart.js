@@ -53,6 +53,9 @@ const mutations = {
             if(i.product.quantity <= 0) state.cart.checkout = false
         }
 
+        if(state.cart.total >= 600) state.cart.delivery = 0
+        else state.cart.delivery = 100
+
     },
 
     async setWishlist(state, data) {

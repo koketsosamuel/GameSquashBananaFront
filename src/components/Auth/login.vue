@@ -27,7 +27,7 @@
                 filled
             ></v-text-field>
 
-            <v-checkbox class="my-0" label="Keep logged in" v-model="keepMeLoggenId" color="purple" :value="true"></v-checkbox>
+            <v-checkbox class="my-0" label="Keep logged in" v-model="keepMeLoggedIn" color="purple" :value="true"></v-checkbox>
 
 
             <v-btn class="purple mb-3 white--text" type="submit">Submit</v-btn>
@@ -54,7 +54,7 @@ export default {
         password: "",
         emailErr: null,
         passwordErr: null,
-        keepMeLoggenId: false
+        keepMeLoggedIn: true
     }),
 
     methods: {
@@ -69,7 +69,8 @@ export default {
 
             let res = await this.$axios.post("/users/login", {
                 email: this.email,
-                pwd: this.password
+                pwd: this.password,
+                keepMeLoggedIn: this.keepMeLoggedIn
             })
 
             if(this.done && !res.data.err) {
@@ -77,6 +78,7 @@ export default {
                 this.authenticate({...res.data.results})
                 this.reset()
                 this.done()
+                this.$router.go("/")
 
             }
 

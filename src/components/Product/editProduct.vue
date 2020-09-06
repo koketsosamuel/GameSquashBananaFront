@@ -6,7 +6,7 @@
 			<v-stepper-header>
 				<v-stepper-step
 					:complete="stepper > 1"
-					step="1"
+					step="1" 
 					color="green"
 					editable
 					>Details</v-stepper-step
@@ -115,7 +115,10 @@
 					<div class="py-3"></div>
 					<v-btn class="green white--text" @click="stepper = 1">Back</v-btn>
 					<v-divider vertical class="mx-2"></v-divider>
-					<v-btn class="purple white--text" @click="editProduct">Skip</v-btn>
+					<v-btn class="green white--text" @click="editProduct">Update</v-btn>
+					<v-divider vertical class="mx-2"></v-divider>
+
+					<v-btn class="purple white--text" @click="stepper += 1">Skip</v-btn>
 
 				</v-stepper-content>
 

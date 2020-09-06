@@ -2,17 +2,18 @@
     
     <div>
 
+        <h1 class="green--text"><v-icon>mdi-accessibility</v-icon> Admin Panel</h1>
+
         <div class="row">
             <div class=" text-center col-6 col-md-4 col-lg-3" v-for="(item, i) in items" :key="i">
                 
-                <v-card height="100%" :to="item.to" class="pa-4">
+                <v-card height="100%" :to="item.to" :class="'pa-4 ' +  (i % 2 == 0  ? 'purple': 'green')">
                     <p class="">
-                        <v-icon size="100" class="green--text text--lighten-2">mdi-{{item.icon}}</v-icon>
+                        <v-icon size="100" class="white--text">mdi-{{item.icon}}</v-icon>
                     </p>
-                    <h3 class="purple--text text--lighten-2">{{item.title}}</h3>
+                    <h3 class="white--text">{{item.title}}</h3>
                     
                 </v-card>
-
 
             </div>
         </div>
@@ -56,23 +57,18 @@ export default {
             {
                 icon: "clipboard-text",
                 title: "Orders",
-                to: "/manageunapprovedreviews"
-            },
-            {
-                icon: "truck",
-                title: "Deliveries",
-                to: "/manageunapprovedreviews"
-            },
-            {
-                icon: "swap-vertical-bold",
-                title: "Specials",
-                to: "/manageunapprovedreviews"
+                to: "/manageorders"
             },
             {
                 icon: "camera-burst",
                 title: "Banners",
                 to: "/managebanners"
             },
+            {
+                icon: "chart-areaspline",
+                title: "Report",
+                to: "/reports"
+            }
 
 
         ]

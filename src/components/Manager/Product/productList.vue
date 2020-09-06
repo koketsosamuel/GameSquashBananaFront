@@ -60,7 +60,7 @@
 				<td>
 					<v-menu bottom left>
 						<template v-slot:activator="{ on, attrs }">
-						<v-btn fab icon v-bind="attrs" v-on="on" @click="product = p">
+						<v-btn fab icon v-bind="attrs" v-on="on" @click="product = {...p}">
 							<v-icon>mdi-dots-vertical</v-icon>
 						</v-btn>
 						</template>
@@ -91,7 +91,8 @@
 
 	<messageIcon message="No products here!" v-else />
 		
-	<div v-if="productsObj.pages > 1">
+
+	<div v-if="productsObj.nav.pages > 1">
 		<div class="float-right my-4">
 			<productsPaginator />	
 		</div>
@@ -209,6 +210,7 @@ export default {
 		async remove() {
 			let res = await this.$axios.delete("/products/" + this.product._id)
 			if(!res.data.err) this.getProducts()
+			this.removeDialog = false
 
 		}
 	},

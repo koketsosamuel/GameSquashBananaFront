@@ -16,7 +16,6 @@
                             <th class="text-left">User's Name</th>
                             <th class="text-left">Rating</th>
                             <th class="text-left">Comment</th>
-                            <th class="text-left">Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,7 +30,6 @@
                             <td>{{ r.nameOfUser }}</td>
                             <td>{{ r.rating }}</td>
                             <td>{{ r.comment}}</td>
-                            <td>{{ $moment.fromNow(r.date) }}</td>
                             
                         </tr>	
                     </tbody>
@@ -47,7 +45,7 @@
                 class="d-inline py-4 mt-4"
             ></v-pagination>
         </div>
-        <messageIcon message="No new reviews requiring approval" />
+        <messageIcon message="No new reviews requiring approval" v-if="reviews.length <= 0" />
 
     </div>
 

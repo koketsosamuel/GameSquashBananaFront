@@ -82,7 +82,11 @@
                     <v-divider class="mx-2 white" vertical ></v-divider>
                     <v-btn color="pink" class="white--text" @click="mainDialog = false; reset()">Cancel</v-btn>
                     <v-divider class="mx-2 white" vertical ></v-divider>
-                    <v-btn color="success" class="float-right" @click="clearFilter">Clear Filter</v-btn>
+
+                    <div class="float-right">
+                        <v-btn color="success" class="mt-3 " @click="clearFilter">Clear Filter</v-btn>
+
+                    </div>
                     <div class="clear-float"></div>
                </div>
 
@@ -296,6 +300,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+
+    /* @media (max-width: ;) */
+
 
 </style>

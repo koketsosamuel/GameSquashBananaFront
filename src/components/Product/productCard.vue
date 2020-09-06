@@ -21,7 +21,7 @@
         >
             <h5 class="py-0 pl-2">{{product.name}}</h5>
            
-            <div class="grey--text my-0 py-0 pl-2">R {{product.price}}</div>
+            <div class="grey--text my-0 py-0 pl-2">R {{product.taxedAmount}}</div>
             
             <v-rating
                 :value="product.overallRating"

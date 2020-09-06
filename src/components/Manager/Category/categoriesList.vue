@@ -18,7 +18,7 @@
                         class="cursor"
                     >
                         <td>{{ c.name }}</td>
-                        <td>R {{ c.description }}</td>
+                        <td>{{ c.description }}</td>
                         <td>{{ c.subs.length }}</td>
 
                         <td>

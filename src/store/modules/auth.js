@@ -17,7 +17,6 @@ const actions = {
         try {
             let res = await this._vm.$axios.post("/users/checkauth", {})
             if(res.data.results != undefined || res.data.results != null) commit("setAuth", res.data.results)
-            console.log(res.data.results != undefined)
         } catch (error) {
             
         }
@@ -29,6 +28,7 @@ const mutations = {
 
     setAuth(state, data) {
         state.user = data
+        console.log(data)
     },
 
     remAuth(state) {

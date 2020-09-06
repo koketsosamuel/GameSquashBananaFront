@@ -1,19 +1,30 @@
 <template>
     <div>
         
-        <h2 class="green--text"><v-icon color="green">mdi-heart</v-icon> Wishlist</h2>
+        <h1 class="green--text"><v-icon color="green">mdi-heart</v-icon> Wishlist</h1>
 
         <div v-if="wishlist.length > 0">
             
             <div class="pt-2 pb-4">
                 <v-btn color="pink" class="white--text" @click="remove">Remove</v-btn>
                 <v-divider vertical class="mx-2"></v-divider>
-                <v-btn color="purple" class="white--text" @click="movetowish">move to cart</v-btn>
+
+
+                <v-btn
+                    color="purple" 
+                    class="white--text" 
+                    @click="movetowish"                           
+                >
+                    <v-icon>mdi-heart</v-icon>
+                    <v-icon>mdi-arrow-right</v-icon>
+                    <v-icon>mdi-cart</v-icon>
+                </v-btn>
+
             </div>
 
             <div v-for="item in wishlist" :key="item._id" class="d-flex pa-2 mb-2 grey lighten-4"> 
 
-                <v-checkbox v-model="wishItems" color="purple" :value="item._id"></v-checkbox>
+                <v-checkbox v-model="wishItems" color="purple" :value="item"></v-checkbox>
 
                 <router-link :to="'/products/'+item.product._id">
                     <v-img :src="$baseURL + item.product.thumb" inline max-height="100px" max-width="100px"></v-img>
@@ -22,7 +33,7 @@
                 <div class="pl-4">
                     <h3>{{item.product.name}}</h3>
                     <p class="pa-0 ma-0">
-                        Price: <b class="purple--text">R {{item.product.price}}</b>
+                        Price: <b class="purple--text">R {{item.product.taxedAmount}}</b>
                     </p>
 
                     <span v-if="item.product.quantity <= 0">   

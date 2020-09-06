@@ -26,15 +26,39 @@ let axiosMod = axios.create({
 
 // global register markdown register
 Vue.use(Editor)
-Vue.use(toast)
+Vue.use(toast, {})
 Vue.use(progress)
 
 Vue.config.productionTip = false
 
 // protos
 Vue.prototype.$loading = true
-Vue.prototype.$baseURL = "http://127.0.0.1:3000/"
-Vue.prototype.$moment = moment()
+Vue.prototype.$baseURL = "http://localhost:3000/"
+
+Vue.prototype.$getDate = function(date) {
+	let d = new Date(date)
+	let months = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"April",
+		"May",
+		"June",
+		"July",
+		"Aug",
+		"Sept",
+		"Oct",
+		"Nov",
+		"Dec"
+	]
+	return d.getDate() + " - " + (months[d.getMonth()]).toString() + " - " + d.getFullYear()
+}
+
+Vue.prototype.$getStatus = function getStatus(num) {
+	if(num == 1) return "Awaiting Delivery"
+	if(num == 2) return "Delivered"
+	if(num == 0) return "Cancelled"
+}
 
 Vue.component("confirmAction", confirmAction)
 Vue.component("messageIcon", messageIcon)

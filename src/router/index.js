@@ -7,10 +7,14 @@ import oneProduct from "../components/Product/viewOne"
 import cart from "../components/cart/cart"
 import wishlist from "../components/cart/wishlist"
 import checkout from "../components/checkout"
+import myOrders from "../components/myOrders"
+import orderSuccess from "../components/ordersuccess"
+import four04 from "../components/404.vue"
 
 Vue.use(VueRouter)
 
 const routes = [
+	
 	{
 		path: "/",
 		name: "Home",
@@ -42,10 +46,26 @@ const routes = [
 		component: checkout,
 	},
 	{
+		path: "/myorders",
+		name: "myOrders",
+		component: myOrders
+	},
+	{
+		path: "/ordersuccess",
+		name: "orderSuccess",
+		component: orderSuccess
+	},
+	{
 		path: "/about",
 		name: "About",
 		component: () =>
 			import("../views/About.vue"),
+	},
+	{
+		path: "/order/:orderId",
+		name: "singleOrder",
+		component: () =>
+			import("../components/Order/singleOrder.vue"),
 	},
 	{
 		path: "/addproduct",
@@ -65,7 +85,7 @@ const routes = [
 	},
 	{
 		path: "/manageproducts",
-		name: "manageProduct",
+		name: "manageProducts",
 		component: () =>
 			import(
 				"../components/Manager/products"
@@ -199,6 +219,27 @@ const routes = [
 				"../components/Manager/banners"
 			),
 	},
+	{
+		path: "/manageorders",
+		name: "manageOrders",
+		component: () =>
+			import(
+				"../components/Manager/orders"
+			),
+	},
+	{
+		path: "/reports",
+		name: "reports",
+		component: () =>
+			import(
+				"../components/Manager/reports"
+			),
+	},
+	{
+		path: "*",
+		name: "404",
+		component: four04
+	}
 ]
 
 const router = new VueRouter({

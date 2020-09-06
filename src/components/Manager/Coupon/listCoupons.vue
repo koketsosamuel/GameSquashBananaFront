@@ -7,24 +7,24 @@
                 <template v-slot:default>
                     <thead>
                         <tr>
-                            <th></th>
                             <th class="text-left">Code</th>
-                            <th class="text-left">Percentage Off</th>
                             <th class="text-left">Amount Off</th>
-                            <th class="text-left">Max. Amount Off</th>
                             <th class="text-left">Min. Amount</th>
-                            <th class="text-left">Approved</th>
-                            <th class="text-left">Start</th>
-                            <th class="text-left">End</th>
-                            <th class="text-left">Max Uses</th>
-                            <th class="text-left"># Uses</th>
+                            <th class="text-left"></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <tr 
                             v-for="c in coupons" 
                             :key="c._id" 
                         >
+
+                            <td>{{ c.code }}</td>
+                            <td>{{ c.amountOff ? "R " + c.amountOff : "None" }}</td>
+                            <td>{{ c.minAmount ? "R " + c.minAmount : "None" }}</td>
+
                             <td>
                                 <v-menu bottom left>
                                     <template v-slot:activator="{ on, attrs }">
@@ -43,16 +43,8 @@
                                     </v-list>
                                 </v-menu>
                             </td>
-                            <td>{{ c.code }}</td>
-                            <td>{{ c.percOff ? c.percOff + "%": "None"}} </td>
-                            <td>{{ c.amountOff ? "R " + c.amountOff : "None" }}</td>
-                            <td>{{ c.maxAmountOff ? "R " + c.maxAmountOff : "None"  }}</td>
-                            <td>{{ c.minAmount ? "R " + c.minAmount : "None" }}</td>
-                            <td>{{ c.approved ? "Yes" : "No"}}</td>
-                            <td>{{ c.startDate }}</td>
-                            <td>{{ c.endDate ? c.endDate : "None" }}</td>
-                            <td>{{ c.maxNUses ? c.maxNUses : "None" }}</td>
-                            <td>{{ c.nUses ? c.nUses : 0 }}</td>
+                            
+                          
                         </tr>
                     </tbody>
                 </template>

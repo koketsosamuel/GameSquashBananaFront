@@ -38,61 +38,63 @@
                     </v-card-title>
                     <v-card-text>
                         <h1>R {{product.price}}</h1>
-                        <p v-if="product.quantity <= 0" class="pt-4 pink--text">Out of stock</p>
-                        <p v-if="product.quantity > 0" class="pt-4 green--text">Available: {{product.quantity}}</p>
+                        <p v-if="product.quantity <= 0" class="pt-4 pink--text">
+                            Out of stock
+                        </p>
+                        <p v-else-if="product.deletedAt || product.discontinued" class="pt-4 pink--text">
+                            Product has been discontinued
+                        </p>
+                        <p v-else class="pt-4 green--text">
+                            Available: {{product.quantity}}
+                        </p>
 
-                        <v-rating
-                            :value="product.overallRating"
-                            color="amber "
-                            class="ml-0 mt-2 pl-0"
-                            dense
-                            half-increments
-                            readonly
-                            size="24"
-                            v-if="product.overallRating"
-                        ></v-rating>
-
-                        <span 
-                            class="amber--text pl-1" 
-                            v-if="product.overallRating"
-                        >
-                            {{product.nReviews}} Review(s)
-                        </span>
+                        
                         
                     </v-card-text>
 
                     <v-card-actions class="grey">
-                        <v-btn color="green" class="white--text" :disabled="!(product.quantity > 0 || product.quantity == null)" @click="addToCart">
+                        <v-btn 
+                            color="green" 
+                            class="white--text" 
+                            :disabled="!(product.quantity > 0 && !product.discontinued)" 
+                            @click="addToCart"
+                        >
                             <v-icon>mdi-cart-plus</v-icon> add to cart
                         </v-btn>
-                        <v-btn  color="pink" class="white--text" @click="addToWishlist">
+                        <!-- <v-btn  color="pink" class="white--text" @click="addToWishlist">
                             <v-icon>mdi-heart</v-icon> wishlist
-                        </v-btn>
+                        </v-btn> -->
                     </v-card-actions>
 
 
                 </v-card>
 
                 <v-card class="my-4 pa-4">
-                    <h3 class="purple--text">
-                        <v-icon color="purple">mdi-share-variant</v-icon> Share
+                    <h3 class="amber--text">
+                        Rating
                     </h3>
 
-                    <div class="my-4">
-                        <v-btn class="blue">
-                            <v-icon color="white">mdi-facebook</v-icon>
-                        </v-btn>
-                        <v-divider vertical class="mx-2"></v-divider>
-                        <v-btn class="blue lighten-2">
-                            <v-icon color="white">mdi-twitter</v-icon>
-                        </v-btn>
-                        <v-divider vertical class="mx-2"></v-divider>
-                        <v-btn class="green lighten-2">
-                            <v-icon color="white">mdi-whatsapp</v-icon>
-                        </v-btn>
-                    </div>
+                    <v-rating
+                        :value="product.overallRating"
+                        color="amber "
+                        class="ml-0 mt-2 pl-0"
+                        dense
+                        half-increments
+                        readonly
+                        size="24"
+                        v-if="product.overallRating"
+                    ></v-rating>
 
-                    <v-btn color="success" blok @click="reviewDialog = true">Review</v-btn>
+                    <p v-else class="grey--text mt-2">No ratings yet</p>
+
+                    <span 
+                        class="amber--text pl-1" 
+                        v-if="product.overallRating"
+                    >
+                        {{product.nReviews}} Review(s)
+                    </span>
+
+                    <v-btn color="success" class="mt-4" block @click="reviewDialog = true">Review</v-btn>
 
                 </v-card>
             </div>
@@ -180,6 +182,7 @@ export default {
         async addToWishlist() {
             let res = await this.$axios.post("/cartitems/wish", {product: this.product._id})
             if(!res.data.err) this.getWishlist()
+            alert(0)
         },
 
         doneReviewing() {

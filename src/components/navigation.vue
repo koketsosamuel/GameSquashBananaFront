@@ -7,9 +7,9 @@
 			app
 			elevate-on-scroll
 		>
-			<v-app-bar-nav-icon></v-app-bar-nav-icon>
-			<router-link to="/" tag="span">
-				<v-toolbar-title>Shop</v-toolbar-title>
+			<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+			<router-link to="/" tag="span" class="cursor">
+				<v-toolbar-title> GameSquashBanana</v-toolbar-title>
 			</router-link>
 
 			<v-spacer></v-spacer>
@@ -32,47 +32,69 @@
 
 			<v-divider vertical class="mx-2"></v-divider>
 
+			<v-btn color="purple" to="/products?sort=-createdAt">				
+				<v-icon>mdi-gamepad</v-icon> Games			
+			</v-btn>
+
+			<v-divider vertical class="mx-2"></v-divider>
+
 			<v-menu offset-y>
 			<template v-slot:activator="{ on, attrs }">
-				<v-btn
-					icon
+				<v-btn				
 					v-bind="attrs"
 					v-on="on"
+					color="purple"
+					class="lighten-1f"
 				>
-					<v-icon>mdi-account</v-icon>
+					<v-icon>mdi-account</v-icon> {{user ? "My Account" : "Login"}}
 				</v-btn>
 			</template>
 			<v-list>
 				<v-list-item @click="registerDialog = true" v-if="!user">
-					<v-list-item-title> Register</v-list-item-title>
+					<v-list-item-title><v-icon>mdi-account-plus</v-icon> Register</v-list-item-title>
 				</v-list-item>
+
 				<v-list-item @click="loginDialog = true" v-if="!user">
-					<v-list-item-title> Login</v-list-item-title>
+					<v-list-item-title><v-icon>mdi-login</v-icon> Login</v-list-item-title>
 				</v-list-item>
+
+				<v-list-item v-if="user" to="/myorders">
+					<v-list-item-title><v-icon>mdi-archive</v-icon> My Orders</v-list-item-title>
+				</v-list-item>
+
 				<v-list-item v-if="user" to="/myaccount">
-					<v-list-item-title> My Account</v-list-item-title>
+					<v-list-item-title><v-icon>mdi-account</v-icon> My Account</v-list-item-title>
 				</v-list-item>
-				<v-list-item v-if="user && user.isAdmin">
-					<v-list-item-title> Admin Panel</v-list-item-title>
+
+				<v-list-item v-if="user && (user.isAdmin || user.isSuper)" to="/admin">
+					<v-list-item-title><v-icon>mdi-settings-outline</v-icon> Admin Panel</v-list-item-title>
 				</v-list-item>
-				<v-list-item v-if="user">
-					<v-list-item-title> Orders</v-list-item-title>
+				
+				<v-list-item v-if="user && user.isOrderManager" to="/manageorders">
+					<v-list-item-title><v-icon>mdi-clipboard-text</v-icon>Manage Orders</v-list-item-title>
 				</v-list-item>
+
+
+				<v-list-item v-if="user && user.isProductManager" to="/manageproducts">
+					<v-list-item-title><v-icon>mdi-archive</v-icon> Manage Products</v-list-item-title>
+				</v-list-item>
+
 				<v-list-item v-if="user" @click="deauthenticateUser">
-					<v-list-item-title> Logout</v-list-item-title>
+					<v-list-item-title><v-icon>mdi-logout</v-icon> Logout</v-list-item-title>
 				</v-list-item>
+
 			</v-list>
 			</v-menu>
 
-			<v-btn icon to="/wishlist">
+			<!-- <v-btn icon to="/wishlist">
 				<v-icon>mdi-heart</v-icon>
-			</v-btn>
+			</v-btn> -->
+
+			<v-divider class="mx-2" vertical></v-divider>
 
 				
-			<v-btn icon to="/cart">
-				<v-badge right color="purple" :content="cart.items.length" >
-					<v-icon>mdi-cart</v-icon>
-				</v-badge>
+			<v-btn color="purple" to="/cart">				
+				<v-icon>mdi-cart</v-icon> Cart			
 			</v-btn>
 
 			<v-divider vertical class="mx-1 green" ></v-divider>

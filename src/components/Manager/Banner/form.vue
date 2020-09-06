@@ -78,7 +78,7 @@ export default {
         async actionExecute(e) {
 
             e.preventDefault()
-            if(!this.validate()) return false
+            //if(!this.validate()) return false
             //this.image = this.$refs.image.files[0]
 
             let fd = new FormData()
