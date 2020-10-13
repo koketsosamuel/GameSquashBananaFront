@@ -3,7 +3,7 @@
 		<v-app id="app">
 
 			<navigation />
-
+			<Pren />
 			<v-container>
 				<div class="py-8"></div>
 				<router-view />
@@ -22,6 +22,7 @@
 	import navigation from "./components/navigation"
 	import footerCompo from "./components/footer"
 	import {mapActions} from "vuex"
+	import Pren from "./components/Pren"
 
 	export default {
 		
@@ -29,7 +30,8 @@
 
 		components: {
 			navigation,
-			footerCompo
+			footerCompo,
+			Pren
 		},
 
 		methods: mapActions(["getCart", "checkAuth"]),
